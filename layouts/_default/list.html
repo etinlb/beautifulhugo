@@ -5,7 +5,13 @@
         <div class="row">
           <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
             <div class="page-heading">
+            {{ if not .Content }}
               <h2>#{{ .Title }}</h2>
+            {{ else }}
+              <div class="list-blurb well">
+                {{ .Content }}
+              </div>
+            {{ end }}
             </div>
           </div>
         </div>
@@ -36,7 +42,11 @@
               </p>
               <div class="post-entry">
                 {{ if .Truncated }}
-                  {{ .Summary }}
+                  {{ if .Params.custom_summary }}
+                    {{ .Params.custom_summary }}
+                  {{ else }}
+                    {{ .Summary }}
+                  {{ end }}
                   <a href="{{ .Permalink }}" class="post-read-more">[{{ i18n "readMore" }}]</a>
                 {{ else }}
                   {{ .Content }}
